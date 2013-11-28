@@ -57,4 +57,3 @@ Alif Rachmawadi's [Gingerice](https://github.com/subosito/gingerice) may be a be
 ### Thanks
 
 Ginger Software for the great software and services that support learners aspiring for skills of writing good English.
-
