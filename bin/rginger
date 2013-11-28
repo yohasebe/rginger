@@ -1,0 +1,98 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+$:.unshift(File::join(File::dirname(File::dirname(__FILE__)), "lib"))
+
+require 'rginger'
+require 'trollop'
+require 'rainbow'
+
+opts = Trollop::options do
+  version RGinger::VERSION
+  banner <<-EOS
+RGinger uses Ginger proofreading API and acquires correction and rephrasing suggestions for input English sentence.
+
+Usage:
+       rginger [options] "input text"
+       where [options] are:
+EOS
+  
+  opt :coloring, "Get colorful output", :default => true
+  opt :correction, "Get suggestions for correcting the original sentence", :default => true
+  opt :rephrase, "Get suggestions for rephrasing the original sentence", :default => true
+end
+
+input_text = ARGV ? ARGV.join(" ").dup : ""
+
+Trollop::die "Input text needs to be given" if !input_text || /\A\s*\z/ =~ input_text
+Trollop::die "Either 'Correction' or 'Rephrase' option needs to be turned on" if !opts[:correction] && !opts[:rephrase]
+
+Sickill::Rainbow.enabled = false unless opts[:coloring]
+
+begin
+
+  ginger = RGinger::Parser.new
+  corrected = nil
+  
+  puts ""
+  
+  if opts[:correction]
+    result1 = ginger.correct(input_text)
+    data = result1["data"]
+    if !data.empty?
+      puts "ORIGINAL:".background(:blue)
+      print "\t"
+      onset = 0
+      data.each do |d|
+        reverse_from = d["reverse_from"]
+        reverse_to = d["reverse_to"]        
+        preceding = input_text[onset ... reverse_from]
+        marked = d["old"]
+        print preceding.bright
+        print marked.foreground(:red).underline.bright
+        onset = onset + preceding.length +  d["old"].length
+      end
+      puts input_text[onset .. -1].bright
+      
+      puts "CORRECTED:".background(:green)
+      print "\t"
+      onset = 0
+      data.each_with_index do |d, idx|
+        reverse_from = d["reverse_from"]
+        reverse_to = d["reverse_to"]        
+        preceding = input_text[onset ... reverse_from]
+        marked = d["new"]
+        print preceding.bright
+        print marked.foreground(:green).underline.bright
+        onset = onset + preceding.length + d["old"].length
+      end
+      puts input_text[onset .. -1].bright
+    else
+      puts "Original:".background(:blue)
+      puts "\t#{input_text}".bright
+      puts "CORRECTED:".background(:green)
+      puts "\tNo suggestion returned".foreground(:magenta)
+    end
+  else
+    puts "Original:".background(:cyan)
+    puts "\t#{input_text}".bright
+  end
+    
+  if opts[:rephrase]
+    input_text = corrected if corrected
+    result2 = ginger.rephrase(input_text)["alternatives"]
+    puts "ALTERNATIVES:".background(:cyan)
+    if !result2.empty?
+      result2.each do |r|
+        puts "\t" + r.bright
+      end
+    else
+      puts "\tNo suggestion returned".foreground(:magenta)
+    end
+  end
+  
+  puts ""  
+
+rescue Exception => e
+  puts e.message
+end
