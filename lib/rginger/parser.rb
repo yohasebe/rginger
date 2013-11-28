@@ -109,11 +109,11 @@ module RGinger
           get_json(location, limit - 1)
         else
           # Error
-          puts [uri.to_s, response.value].join(" : ")
+          throw [uri.to_s, response.value].join(" : ")
         end
       rescue => e
         # Error
-        puts [uri.to_s, e.class, e].join(" : ")
+        throw [uri.to_s, e.class, e].join(" : ")
       end
     end
     

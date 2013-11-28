@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    rginger (0.1)
+      rainbow
+      trollop
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rainbow (1.1.4)
+    rake (10.1.0)
+    trollop (2.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler
+  rake
+  rginger!

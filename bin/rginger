@@ -33,7 +33,7 @@ begin
 
   ginger = RGinger::Parser.new
   corrected = nil
-  
+
   puts ""
   
   if opts[:correction]
@@ -94,5 +94,9 @@ begin
   puts ""  
 
 rescue Exception => e
-  puts e.message
+  # puts e.message
+  
+  print "\n[ERROR]".foreground(:red)
+  puts  "Something went wrong. Network error maybe?"
+  exit
 end
