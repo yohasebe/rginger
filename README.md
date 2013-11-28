@@ -25,8 +25,7 @@ RGinger takes an English sentence and gives correction and rephrasing suggestion
 
 ### Output Sample
 
-
-
+<a href="http://www.flickr.com/photos/yo_hasebe/11097279325/" title="rginger by yo_hasebe, on Flickr"><img src="http://farm4.staticflickr.com/3673/11097279325_a382163d57_o.jpg" width="383" height="255" alt="rginger"></a>
 
 ## Library Usage 
 

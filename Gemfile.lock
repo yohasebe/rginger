@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rginger (0.1)
+    rginger (0.1.1)
       rainbow
       trollop
 
