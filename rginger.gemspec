@@ -26,4 +26,3 @@ Gem::Specification.new do |gem|
   gem.add_dependency "trollop"
   gem.add_dependency "rainbow"
 end
-
