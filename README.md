@@ -30,9 +30,10 @@ RGinger takes an English sentence and gives correction and rephrasing suggestion
 ## Library Usage 
 
     require 'rginger'
-    
+
+    text = "I looking forward meet you"
     ginger = RGinger::Parser.new
-    result = ginger.correct "I looking forward meet you"
+    result = ginger.correct text
 
     # {"original"=>"I looking forward meet you",
     # "data"=>
@@ -49,6 +50,18 @@ RGinger takes an English sentence and gives correction and rephrasing suggestion
     #    "reverse_to"=>-5,
     #    "new"=>"to meet"}],
     # "corrected"=>"I am looking forward to meet you"}
+    
+    result = ginger.rephrase text
+    
+    # {"original"=>"I looking forward meet you", 
+    # "alternatives"=>
+    #  ["I was looking forward to meet you", 
+    #   "I look forward to meeting you", 
+    #   "I'm looking forward to meeting you", 
+    #   "I'm looking forward to meet you", 
+    #   "I look forwarding to meeting you", 
+    #   "I'm looking forwarding to meeting you", 
+    #   "I look forward to meeting you all"]} 
 
 ### References
 
