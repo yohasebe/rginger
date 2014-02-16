@@ -21,8 +21,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|gem|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_development_dependency "bundler"
-  gem.add_development_dependency "rake"
-  gem.add_dependency "trollop"
-  gem.add_dependency "rainbow"
+  gem.add_development_dependency "bundler", '~> 0'
+  gem.add_development_dependency "rake", '~> 0'
+  gem.add_runtime_dependency "trollop", '~> 0'
+  gem.add_runtime_dependency "rainbow", '~> 0'
 end
