@@ -5,7 +5,7 @@ $:.unshift(File::join(File::dirname(File::dirname(__FILE__)), "lib"))
 
 require 'rginger'
 require 'trollop'
-require 'rainbow'
+require 'rainbow/ext/string'
 
 opts = Trollop::options do
   version RGinger::VERSION
