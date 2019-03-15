@@ -23,6 +23,6 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "rake"
-  gem.add_runtime_dependency "trollop"
+  gem.add_runtime_dependency "optimist"
   gem.add_runtime_dependency "rainbow"
 end

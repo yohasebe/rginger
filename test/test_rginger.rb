@@ -29,12 +29,12 @@ class TestRGinger < Test::Unit::TestCase
     assert_equal "woke", result['data'].first['new']
   end
 
-  def test_rephrasing_sentence
-    result = @ginger.rephrase(@corrected)
+  # def test_rephrasing_sentence
+  #   result = @ginger.rephrase(@corrected)
     
-    assert_equal @corrected, result['original']
-    assert_equal 4, result['alternatives'].size
-    assert_equal @alternative, result['alternatives'].first
-  end
+  #   assert_equal @corrected, result['original']
+  #   assert_equal 4, result['alternatives'].size
+  #   assert_equal @alternative, result['alternatives'].first
+  # end
 
 end

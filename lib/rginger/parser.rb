@@ -1,5 +1,6 @@
 require 'net/http'
 require 'uri'
+require 'cgi'
 require 'json'
 
 module RGinger
@@ -18,7 +19,7 @@ module RGinger
       end
 
       width = text.length
-      escaped = URI.escape(text)
+      escaped = CGI.escape(text)
       url = "#{API_ENDPOINT}?lang=#{DEFAULT_LANG}&clientVersion=#{API_VERSION}&apiKey=#{API_KEY}&text=#{escaped}"
 
       json_data = get_json(url)["LightGingerTheTextResult"] rescue {}
@@ -67,23 +68,23 @@ module RGinger
       results
     end
  
-    def rephrase(input)
+    # def rephrase(input)
 
-      text = input.dup
-      results = {"original" => input, "alternatives" => []}
-      return results if !text || text == ""
+    #   text = input.dup
+    #   results = {"original" => input, "alternatives" => []}
+    #   return results if !text || text == ""
 
-      width = text.length
-      escaped = URI.escape(text)
-      url = "#{REPHRASE_ENDPOINT}?s=#{escaped}"
+    #   width = text.length
+    #   escaped = CGI.escape(text)
+    #   url = "#{REPHRASE_ENDPOINT}?s=#{escaped}"
 
-      json_data = get_json(url)
+    #   json_data = get_json(url)
 
-      unless json_data.empty? || json_data["Sentences"].empty?
-        results["alternatives"] = json_data["Sentences"].map{|s| s["Sentence"]}
-      end    
-      results
-    end
+    #   unless json_data.empty? || json_data["Sentences"].empty?
+    #     results["alternatives"] = json_data["Sentences"].map{|s| s["Sentence"]}
+    #   end    
+    #   results
+    # end
     
     :private
     

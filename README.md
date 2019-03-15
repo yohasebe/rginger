@@ -2,6 +2,9 @@
 
 RGinger takes an English sentence and gives correction and rephrasing suggestions for it using Ginger proofreading API. It can be used both as a Ruby library and a command line application.
 
+**IMPORTANT**<br />
+Version 0.1.5 dropped `rephrase` option and `Rginger#rephrase` function because the API endpoint for these is no longer functioning. The relevant documentation in this readme will be kept as it was for the time being though.
+
 ## Installation
 
     $ gem install rginger

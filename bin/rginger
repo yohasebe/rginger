@@ -4,10 +4,10 @@
 $:.unshift(File::join(File::dirname(File::dirname(__FILE__)), "lib"))
 
 require 'rginger'
-require 'trollop'
+require 'optimist'
 require 'rainbow/ext/string'
 
-opts = Trollop::options do
+opts = Optimist::options do
   version RGinger::VERSION
   banner <<-EOS
 RGinger uses Ginger proofreading API and acquires correction and rephrasing suggestions for input English sentence.
@@ -18,16 +18,16 @@ Usage:
 EOS
   
   opt :coloring, "Get colorful output", :default => true
-  opt :correction, "Get suggestions for correcting the original sentence", :default => true
-  opt :rephrase, "Get suggestions for rephrasing the original sentence", :default => true
+  # opt :correction, "Get suggestions for correcting the original sentence", :default => true
+  # opt :rephrase, "Get suggestions for rephrasing the original sentence", :default => true
 end
 
 input_text = ARGV ? ARGV.join(" ").dup : ""
 
-Trollop::die "Input text needs to be given" if !input_text || /\A\s*\z/ =~ input_text
-Trollop::die "Either 'Correction' or 'Rephrase' option needs to be turned on" if !opts[:correction] && !opts[:rephrase]
+Optimist::die "Input text needs to be given" if !input_text || /\A\s*\z/ =~ input_text
+# Optimist::die "Either 'Correction' or 'Rephrase' option needs to be turned on" if !opts[:correction] && !opts[:rephrase]
 
-Sickill::Rainbow.enabled = false unless opts[:coloring]
+Rainbow.enabled = false unless opts[:coloring]
 
 begin
 
@@ -36,7 +36,7 @@ begin
 
   puts ""
   
-  if opts[:correction]
+  # if opts[:correction]
     result1 = ginger.correct(input_text)
     data = result1["data"]
     if !data.empty?
@@ -73,23 +73,23 @@ begin
       puts "CORRECTED:".background(:green)
       puts "\tNo suggestion returned".foreground(:magenta)
     end
-  else
-    puts "Original:".background(:cyan)
-    puts "\t#{input_text}".bright
-  end
+  # else
+  #   puts "Original:".background(:cyan)
+  #   puts "\t#{input_text}".bright
+  # end
     
-  if opts[:rephrase]
-    input_text = corrected if corrected
-    result2 = ginger.rephrase(input_text)["alternatives"]
-    puts "ALTERNATIVES:".background(:cyan)
-    if !result2.empty?
-      result2.each do |r|
-        puts "\t" + r.bright
-      end
-    else
-      puts "\tNo suggestion returned".foreground(:magenta)
-    end
-  end
+  # if opts[:rephrase]
+  #   input_text = corrected if corrected
+  #   result2 = ginger.rephrase(input_text)["alternatives"]
+  #   puts "ALTERNATIVES:".background(:cyan)
+  #   if !result2.empty?
+  #     result2.each do |r|
+  #       puts "\t" + r.bright
+  #     end
+  #   else
+  #     puts "\tNo suggestion returned".foreground(:magenta)
+  #   end
+  # end
   
   puts ""  
 
